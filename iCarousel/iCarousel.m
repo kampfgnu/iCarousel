@@ -871,10 +871,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 #ifdef ICAROUSEL_IOS
     
     //add tap gesture recogniser
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-    tapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
-    [containerView addGestureRecognizer:tapGesture];
-    [tapGesture release];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+//    tapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
+//    [containerView addGestureRecognizer:tapGesture];
+//    [tapGesture release];
     
 #else
     
