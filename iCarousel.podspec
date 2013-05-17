@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.source_files = 'iCarousel'
   s.requires_arc = false
   s.frameworks = 'QuartzCore'
-  s.ios.deployment_target = '4.3'
+  s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.6'
 end
