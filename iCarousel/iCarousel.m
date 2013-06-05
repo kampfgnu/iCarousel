@@ -871,10 +871,21 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 #ifdef ICAROUSEL_IOS
     
     //add tap gesture recogniser
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-//    tapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
-//    [containerView addGestureRecognizer:tapGesture];
-//    [tapGesture release];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+    tapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [containerView addGestureRecognizer:tapGesture];
+    [tapGesture release];
+    
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+    doubleTapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
+    doubleTapGesture.numberOfTapsRequired = 2;
+    doubleTapGesture.numberOfTouchesRequired = 1;
+    [containerView addGestureRecognizer:doubleTapGesture];
+    [doubleTapGesture release];
+    
+    [tapGesture requireGestureRecognizerToFail:doubleTapGesture];
     
 #else
     
@@ -2093,14 +2104,16 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (void)didTap:(UITapGestureRecognizer *)tapGesture
 {
-    NSInteger index = [self indexOfItemView:[tapGesture.view.subviews lastObject]];
+    UIView *view = [tapGesture.view.subviews lastObject];
+    NSInteger index = [self indexOfItemView:view];
     if (_centerItemWhenSelected && index != self.currentItemIndex)
     {
         [self scrollToItemAtIndex:index animated:YES];
     }
-    if ([_delegate respondsToSelector:@selector(carousel:didSelectItemAtIndex:)])
+    
+    if ([_delegate respondsToSelector:@selector(carousel:didSelectItemAtIndex:location:numberOfTaps:)])
     {
-        [_delegate carousel:self didSelectItemAtIndex:index];
+        [_delegate carousel:self didSelectItemAtIndex:index location:[tapGesture locationInView:view] numberOfTaps:tapGesture.numberOfTapsRequired];
     }
 }
 
