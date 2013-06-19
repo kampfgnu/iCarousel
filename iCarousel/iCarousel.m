@@ -178,6 +178,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     _centerItemWhenSelected = YES;
     
     _contentView = [[UIView alloc] initWithFrame:self.bounds];
+    _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     
 #ifdef ICAROUSEL_IOS
         
@@ -867,6 +868,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     frame.size.width = _vertical? frame.size.width: _itemWidth;
     frame.size.height = _vertical? _itemWidth: frame.size.height;
     UIView *containerView = [[[UIView alloc] initWithFrame:frame] autorelease];
+    containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
 #ifdef ICAROUSEL_IOS
     
@@ -983,12 +985,12 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 //for Mac OS
-- (void)resizeSubviewsWithOldSize:(NSSize)oldSize
-{
-    [self disableAnimation];
-    [self layoutSubviews];
-    [self enableAnimation];
-}
+//- (void)resizeSubviewsWithOldSize:(NSSize)oldSize
+//{
+//    [self disableAnimation];
+//    [self layoutSubviews];
+//    [self enableAnimation];
+//}
 
 - (void)transformItemViews
 {
