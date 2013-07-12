@@ -2043,8 +2043,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     return [self viewOrSuperview:view.superview isKindOfClass:class];
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch
-{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(carouselShouldHandleGestures:)]) {
+        if (! [self.delegate carouselShouldHandleGestures:self]) return NO;
+    }
+    
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]])
     {
         //handle tap
@@ -2082,8 +2085,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     return YES;
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture
-{
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gesture {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(carouselShouldHandleGestures:)]) {
+        if (! [self.delegate carouselShouldHandleGestures:self]) return NO;
+    }
+    
     if ([gesture isKindOfClass:[UIPanGestureRecognizer class]])
     {
         //ignore vertical swipes
